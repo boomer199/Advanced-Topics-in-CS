@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Web and Network Portfolio</title>
+</head>
+<body>
+    <header class="hero">
+        <img class="hero-image" src="./img/hero.jpeg" alt="Hero Image">
+        <div class="hero-content">
+            <h1 class="intro-title">Web and Network Portfolio</h1>
+            <a href="contact.html">
+                <img class="contact-image" src="./img/me.jpeg" alt="Your Name" 
+                onmouseover="mousehover()",
+                onmouseleave="mouseleave()" >
+            </a>
+        </div>
+    </header>
+
+    <main class="projects">
+        <!-- Project 1 -->
+        <div class="project">
+            <h2 class="project-title">Project 1</h2>
+            <img class="project-snapshot" src="./img/project1.jpeg">
+            <p class="project-description">This is a description of Project 1.</p>
+            <a class="project-button" href="project1.html">Learn More</a>
+        </div>
+
+        <!-- Project 2 (Add more projects as needed) -->
+        <div class="project">
+            <h2 class="project-title">Project 2</h2>
+            <img class="project-snapshot" src="./img/project2.jpeg">
+            <p class="project-description">This is a description of Project 2.</p>
+            <a class="project-button" href="project2.html">Learn More</a>
+        </div>
+
+
+        <script>        
+        let contactimage = document.querySelector(".contact-image");
+        let audio = document.createElement("audio");
+        audio.src = "lol.mp3";
+        document.body.appendChild(audio);
+
+        function mousehover(){
+            contactimage.src = "./img/bluesmurfcat.jpeg"
+            audio.play()
+        }
+        function mouseleave(){
+            contactimage.src='./img/me.jpeg'
+            audio.pause()
+        }
+        </script>
+    </main>
+</body>
+</html>

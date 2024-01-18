@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steg</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            height: 40px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style for the radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Style for the label of the radio buttons */
+        label.radio-label {
+            display: inline-block;
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        /* Style for the text input when "Text" is selected */
+        #text_option:checked ~ .text-input {
+            display: block;
+        }
+
+        /* Style for the image input when "Image" is selected */
+        #image_option:checked ~ .image-input {
+            display: block;
+        }
+        
+        /* Hide text and image input initially */
+        .text-input, .image-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Steg</h1>
+    <form method="post" action="/crypto/steg" enctype="multipart/form-data">
+        <label for="message_type">Select message type:</label>
+        <input type="radio" name="message_type" id="text_option" class="text-input-label" value="text">
+        <label for="text_option" class="radio-label">Text</label>
+        <input type="radio" name="message_type" id="image_option" class="image-input-label" value="image">
+        <label for="image_option" class="radio-label">Image</label>
+        <br><br>
+
+        <div class="text-input">
+            <label for="client_message">Input the client message (text):</label>
+            <textarea name="client_message" id="client_message" rows="4" cols="50"></textarea>
+            <br><br>
+
+            <label for="host_image">Host image:</label>
+            <input type="file" name="host_image" id="host_image" accept=".jpg, .png, .bmp">
+            <br><br>
+        </div>
+
+        <div class="image-input">
+            <label for="client_image">Client Image:</label>
+            <input type="file" name="client_image" id="client_image" accept=".jpg, .png, .bmp">
+            <br><br>
+
+            <label for="host_image">Client Image</label>
+            <input type="file" name="host_image" id="host_image" accept=".jpg, .png, .bmp">
+            <br><br>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

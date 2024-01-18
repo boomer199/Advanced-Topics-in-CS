@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        select, input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        select {
+            height: 40px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sym</h1>
+    <form method="post" action="/crypto/symmetric">
+        <label for="cipher">Select the cipher to use:</label>
+        <select name="cipher" id="cipher">
+            <option value="caesar">Caesar</option>
+            <option value="vigenere">Vigenere</option>
+        </select>
+        <br><br>
+        
+        <label for="action">Type:</label>
+        <input type="radio" name="action" value="encrypt" id="encrypt"> Encrypt
+        <input type="radio" name="action" value="decrypt" id="decrypt"> Decrypt
+        <br><br>
+        
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" rows="4" cols="50"></textarea>
+        <br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+        <br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

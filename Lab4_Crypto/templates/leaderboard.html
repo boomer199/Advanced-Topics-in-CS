@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minesweeper Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minesweeper Leaderboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>Computed Ranking</th>
+                <th>Average Score</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Average Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in leaderboard %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ player.computed_ranking }}</td>
+                <td>{{ player.average_score }}</td>
+                <td>{{ player.name }}</td>
+                <td>{{ player.wins }}</td>
+                <td>{{ player.loses }}</td>
+                <td>{{ player.average_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

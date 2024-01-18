@@ -1,0 +1,105 @@
+/* Reset some default styles */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Define CSS variables for theme colors */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #e74c3c;
+    overflow-wrap: break-word;
+}
+
+/* Apply styles to the hero section */
+.hero {
+    position: relative;
+    height: 100vh;
+
+}
+
+
+.hero-image {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+}
+
+.intro-title {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    color: black;
+}
+
+.contact-image {
+    position: absolute;
+    top: 70%;
+    left: 5%;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+    transition: transform 0.3s ease;
+}
+
+.contact-image:hover {
+    transform: scale(1.1);
+}
+
+/* Apply styles to the project section */
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.project {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.project-title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.project-snapshot {
+    max-width: 15vw;
+    max-height: 15vw;
+    height: auto;
+}
+
+.project-description {
+    margin-top: 10px;
+}
+
+.project-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.project-button:hover {
+    background-color: var(--secondary-color);
+}
