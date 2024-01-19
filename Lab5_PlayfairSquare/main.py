@@ -1,6 +1,10 @@
 import sys
 import getopt
+import os
 from playfair import PlayFair
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "input.txt")
 
 def main(argv):
     input_file = ''
@@ -29,7 +33,7 @@ def main(argv):
 
     # Read input
     if input_file:
-        with open(input_file, 'r') as file:
+        with open(os.path.join(script_dir, input_file)) as file:
             text = file.read()
     else:
         text = input("Enter text: ")
@@ -44,7 +48,7 @@ def main(argv):
 
     # Output
     if output_file:
-        with open(output_file, 'wb' if mode == 'encrypt' else 'w') as file:
+        with open(os.path.join(script_dir, output_file), 'wb' if mode == 'encrypt' else 'w') as file:
             file.write(result)
     else:
         print(result)
