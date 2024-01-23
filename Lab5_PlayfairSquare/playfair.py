@@ -3,23 +3,25 @@ import json
 from textwrap import wrap
 
 class PlayFair:
-    def __init__(self, password):
+    def __init__(self, password = "password"): # very secure
         self.__pass = password.upper().replace('J', 'I')  # Convert password to uppercase and replace J with I
         self.square = self.generate_square()
+
 
     def generate_square(self):
         alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
         seen = set()
         square = {}
 
-        # Generate the square
+        # generate the square
         for char in self.__pass + alphabet:
-            if char not in seen and char != 'J':  # Skip 'J'
+            if char not in seen and char != 'J':  # replace j with i
                 seen.add(char)
-                square[char] = divmod(len(seen) - 1, 5)  # Calculate row and column
+                square[char] = divmod(len(seen) - 1, 5)  # calc row and column
 
         return square
 
+    #finds position in dict
     def find_position(self, char):
         if char in self.square:
             return self.square[char]
@@ -30,7 +32,7 @@ class PlayFair:
         processed_text = text.upper().replace('J', 'I')
         processed_text = ''.join(filter(str.isalpha, processed_text))  # Keep only letters
 
-        # Insert 'X' between duplicate letters and at the end if needed
+        # insert x between duplicate letters and at the end if needed
         i = 0 
         while i < len(processed_text) - 1:
             if processed_text[i] == processed_text[i + 1]:
@@ -47,13 +49,13 @@ class PlayFair:
         r1, c1 = self.find_position(pair[0])
         r2, c2 = self.find_position(pair[1])
 
-        if r1 == r2:  # Same row
+        if r1 == r2:    # same row
             return self.get_char(r1, (c1 + 1) % 5 if mode == "encrypt" else (c1 - 1) % 5) + \
                    self.get_char(r2, (c2 + 1) % 5 if mode == "encrypt" else (c2 - 1) % 5)
-        elif c1 == c2:  # Same column
+        elif c1 == c2:  # same column
             return self.get_char((r1 + 1) % 5 if mode == "encrypt" else (r1 - 1) % 5, c1) + \
                    self.get_char((r2 + 1) % 5 if mode == "encrypt" else (r2 - 1) % 5, c2)
-        else:  # Rectangle
+        else:           # rectangle
             return self.get_char(r1, c2) + self.get_char(r2, c1)
 
     def get_char(self, row, col):
