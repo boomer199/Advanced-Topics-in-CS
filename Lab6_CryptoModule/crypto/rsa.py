@@ -25,7 +25,7 @@ class RSA:
 
     def _generate_prime(self, keysize=1024):
         random_number = random.getrandbits(keysize)
-        if(self.__sieve_of_eratosthenes(random_number)):
+        if(self.__rabinMiller(random_number)):
             return random_number
         else:
             return self._generate_prime()

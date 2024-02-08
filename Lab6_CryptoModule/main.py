@@ -1,7 +1,7 @@
 import sys
 import getopt
 import os
-from crypto import __init__
+from crypto import __init__ as i
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(script_dir, "input.txt")
@@ -46,7 +46,9 @@ def main(argv):
         text = input("Enter text: ")
 
     # Process
-    cipher = 0#TODO:
+    if cipher_type == "ceasar":
+        if mode == "encrypt":
+            pass
 
 if __name__ == "__main__":
    main(sys.argv[1:])
