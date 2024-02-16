@@ -4,8 +4,8 @@ class Caesar:
     def __init__(self, password=1):  # very secure
         self.__pass = password
 
-    @staticmethod
     def is_printable(char):
+        print(char)
         return 32 <= ord(char) <= 126
 
     def encrypt(self, message): 

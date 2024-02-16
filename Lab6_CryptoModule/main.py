@@ -1,8 +1,7 @@
 import sys
 import getopt
 import os
-from crypto import __init__ as i
-
+from crypto import encrypt, decrypt, gen_password 
 
 def main(argv):
     input_file = ''
@@ -12,12 +11,11 @@ def main(argv):
     password_file = ''
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(script_dir, "input.txt")
 
     try:
         opts, args = getopt.getopt(argv, "hi:o:m:c:p:", ["ifile=", "ofile=", "mode=", "ctype=", "pfile="])
     except getopt.GetoptError:
-        print('Usage: main.py -c <ciphertype> -i <inputfile> -o <outputfile> -m <mode> [-p <passwordfile>]')
+        print('Usage: main.py -c <ciphertype> -i <inputfile> -o <outputfile> -m <mode> -p <passwordfile>')
         sys.exit(2)
 
     for opt, arg in opts:
@@ -48,35 +46,40 @@ def main(argv):
         print('Error: Mode must be "encrypt", "decrypt", or "gen"')
         sys.exit(2)
 
-    # Process for RSA cipher
-    if cipher_type == "rsa" and mode == "gen":
-        public_key, private_key = 0 # DO RSA LOGIC LMAO
-        if not output_file:
-            print("Public Key:", public_key)
-            print("Private Key:", private_key)
-        else:
-            with open(output_file + ".public", 'w') as pub_file:
-                pub_file.write(public_key)
-            with open(output_file + ".private", 'w') as priv_file:
-                priv_file.write(private_key)
-        sys.exit(0)
+    # handling password
+    if password_file:
+        with open(os.path.join(script_dir, password_file), 'r') as pf:
+            password = pf.read().strip()
+    else:
+        password = gen_password()
 
-    # If cipher is not RSA and mode is gen, generate a random password
-    if cipher_type != "rsa" and mode == "gen":
-        if not output_file:
-            print(i.generate_random_password())
-        else:
-            with open(output_file, 'w') as file:
-                file.write(i.generate_random_password())
-        sys.exit(0)
-
-    # Read input
+    # logic for encryption and decryption
     if input_file:
-        with open(os.path.join(script_dir, input_file)) as file:
+        with open(os.path.join(script_dir, input_file), 'rb') as file:
             text = file.read()
+            if mode == decrypt:
+                text = bytearray(text, 'utf-8')
     else:
         text = input("Enter text: ")
+        if mode == 'decrypt':
+            text = bytearray(text, 'utf-8')
 
+
+    if mode == 'encrypt':
+        encrypted_text = encrypt(cipher_type, text, password)
+        if output_file:
+            with open(os.path.join(script_dir, output_file), 'wb') as file:
+                text = bytes(encrypted_text).decode('utf-8')
+                file.write(text)
+        else:
+            print(encrypted_text)
+    elif mode == 'decrypt':
+        decrypted_text = decrypt(cipher_type, text, password)
+        if output_file:
+            with open(os.path.join(script_dir, output_file), 'wb') as file:
+                file.write(decrypted_text)
+        else:
+            print(decrypted_text)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

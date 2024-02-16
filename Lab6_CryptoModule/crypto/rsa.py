@@ -7,18 +7,14 @@ class RSA:
         self._n = None
         self._e = None
         self._d = None
-        if keys is None:
-            self._generate_keys()
-        else:
-            self._n = keys.get('public', (None, None))[1]
-            self._e = keys.get('public', (None, None))[0]
-            self._d = keys.get('private', None)
-
-    def encrypt(self, message):
+        
+    def encrypt(self, message, keys = None):
+        self._set_keys(keys)
         encrypted_msg = [pow(ord(char), self._e, self._n) for char in message] #(character keycode^e)mod(n) for each character in the message
         return pickle.dumps(encrypted_msg)
 
-    def decrypt(self, encrypted_message):
+    def decrypt(self, encrypted_message, keys = None):
+        self._set_keys(keys)
         encrypted_msg = pickle.loads(encrypted_message)
         decrypted_msg = ''.join(chr(pow(char, self._d, self._n)) for char in encrypted_msg) #(character keycode^d)mod(n) for each character in the message
         return decrypted_msg
@@ -92,7 +88,7 @@ class RSA:
             a = t
             t = x0
 
-            # Update x0 and x1
+            # update x0 and x1
             x0 = x1 - q * x0
             x1 = t
 
@@ -109,8 +105,15 @@ class RSA:
         else:
             g, y, x = self._egcd(b % a, a)
             return (g, x - (b // a) * y, y)
+        
+    def _set_keys(self, keys):
+        if keys is None:
+            self._generate_keys()
+        else:
+            self._n = keys.get('public', (None, None))[1]
+            self._e = keys.get('public', (None, None))[0]
+            self._d = keys.get('private', None)
 
     def encode_keys(self):
         return {'public': (self._e, self._n), 'private': self._d}
-    
     
