@@ -1,7 +1,7 @@
 import sys
 import getopt
 import os
-from crypto import encrypt, decrypt, gen_password 
+from crypto import encrypt, decrypt, gen_password, ciphers, gen
 
 def main(argv):
     input_file = ''
@@ -46,40 +46,53 @@ def main(argv):
         print('Error: Mode must be "encrypt", "decrypt", or "gen"')
         sys.exit(2)
 
-    # handling password
-    if password_file:
-        with open(os.path.join(script_dir, password_file), 'r') as pf:
-            password = pf.read().strip()
-    else:
-        password = gen_password()
+    password = gen_password() if not password_file else open(os.path.join(script_dir, password_file), 'r').read().strip()
 
-    # logic for encryption and decryption
+    text = None
     if input_file:
         with open(os.path.join(script_dir, input_file), 'rb') as file:
             text = file.read()
-            if mode == decrypt:
-                text = bytearray(text, 'utf-8')
+            #text = bytearray(text, 'utf-8') if mode == 'decrypt' else input_text
     else:
-        text = input("Enter text: ")
-        if mode == 'decrypt':
-            text = bytearray(text, 'utf-8')
+        input_text = input("Enter text: ")
+        text = bytearray(input_text, 'utf-8') if mode == 'decrypt' else input_text
 
 
-    if mode == 'encrypt':
-        encrypted_text = encrypt(cipher_type, text, password)
+    if mode == 'encrypt' or mode == 'decrypt':
+        if mode == 'encrypt':
+            result = encrypt(cipher_type, text, password)
+        elif mode == 'decrypt':
+            result = decrypt(cipher_type, text, password)
+
+        # Writing the result for encryption or decryption
         if output_file:
-            with open(os.path.join(script_dir, output_file), 'wb') as file:
-                text = bytes(encrypted_text).decode('utf-8')
-                file.write(text)
+            mode_flag = 'wb' if mode == 'encrypt' else 'w'
+            with open(os.path.join(script_dir, output_file), mode_flag) as file:
+                file.write(result)
         else:
-            print(encrypted_text)
-    elif mode == 'decrypt':
-        decrypted_text = decrypt(cipher_type, text, password)
-        if output_file:
-            with open(os.path.join(script_dir, output_file), 'wb') as file:
-                file.write(decrypted_text)
+            # Ensure proper decoding for display based on the operation
+            print(result.decode('utf-8') if mode == 'encrypt' else result)
+    elif mode == 'gen':
+        # Key generation should not attempt to use 'result' for file operations
+        if cipher_type == 'rsa':
+            keys = gen(cipher_type)
+            public_key, private_key = keys["public"], keys["private"]
+            if output_file:
+                with open(f"{output_file}.public", 'w') as pub_file:
+                    pub_file.write(str(public_key))
+                with open(f"{output_file}.private", 'w') as priv_file:
+                    priv_file.write(str(private_key))
+            else:
+                print(f"Public Key: {public_key}")
+                print(f"Private Key: {private_key}")
         else:
-            print(decrypted_text)
+            password = gen(cipher_type)  # Generate a password for non-RSA ciphers
+            if output_file:
+                with open(output_file, 'w') as file:
+                    file.write(password)
+            else:
+                print(f"Generated Password: {password}")
+
 
 if __name__ == "__main__":
    main(sys.argv[1:])

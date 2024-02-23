@@ -10,7 +10,7 @@ class RSA:
         
     def encrypt(self, message, keys = None):
         self._set_keys(keys)
-        encrypted_msg = [pow(ord(char), self._e, self._n) for char in message] #(character keycode^e)mod(n) for each character in the message
+        encrypted_msg = [pow(ord(str(char)), self._e, self._n) for char in message] #(character keycode^e)mod(n) for each character in the message
         return pickle.dumps(encrypted_msg)
 
     def decrypt(self, encrypted_message, keys = None):
@@ -22,7 +22,7 @@ class RSA:
     def _generate_keys(self, keysize=1024):
         p = self._generate_prime(keysize)
         q = self._generate_prime(keysize)
-        if p == q:  # In the rare case that p == q, regenerate q
+        if p == q:  # case that p == q, regenerate q
             while p == q:
                 q = self._generate_prime(keysize)
         self._n = p * q
@@ -39,7 +39,7 @@ class RSA:
             t = 1
             while s % 2 == 0:
                 # keep halving s while it is even (and use t
-                # to count how many times we halve s)
+                # to count how many times we halve  s)
                 s = s // 2
                 t += 1
 

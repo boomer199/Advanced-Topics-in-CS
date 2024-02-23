@@ -2,7 +2,7 @@ import json
 from textwrap import wrap
 
 class PlayFair:
-    def __init__(self, password = "password"): # very secure
+    def __init__(self, password): # very secure
         self.__pass = password.upper().replace('J', 'I')  # Convert password to uppercase and replace J with I
         self.square = self.generate_square()
 
@@ -17,7 +17,6 @@ class PlayFair:
             if char not in seen and char != 'J':  # replace j with i
                 seen.add(char)
                 square[char] = divmod(len(seen) - 1, 5)  # calc row and column
-
         return square
 
     #finds position in dict
@@ -68,8 +67,11 @@ class PlayFair:
         return bytearray(encrypted_text, 'utf-8')
 
     def decrypt(self, byte_array):
-        text = bytes(byte_array).decode('utf-8')
+        text = bytes(byte_array).decode('utf-8').upper() 
+        if len(text) % 2 != 0:
+            raise ValueError("Decryption error: Text length must be even.")
         return ''.join(self.swap_pair(pair, "decrypt") for pair in wrap(text, 2))
+
 
     def encode_keys(self):
         return json.dumps({"password": self.__pass})

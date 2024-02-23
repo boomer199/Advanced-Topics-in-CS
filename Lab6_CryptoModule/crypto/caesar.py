@@ -5,7 +5,6 @@ class Caesar:
         self.__pass = password
 
     def is_printable(char):
-        print(char)
         return 32 <= ord(char) <= 126
 
     def encrypt(self, message): 
