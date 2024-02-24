@@ -52,7 +52,6 @@ def main(argv):
     if input_file:
         with open(os.path.join(script_dir, input_file), 'rb') as file:
             text = file.read()
-            #text = bytearray(text, 'utf-8') if mode == 'decrypt' else input_text
     else:
         input_text = input("Enter text: ")
         text = bytearray(input_text, 'utf-8') if mode == 'decrypt' else input_text
@@ -63,17 +62,13 @@ def main(argv):
             result = encrypt(cipher_type, text, password)
         elif mode == 'decrypt':
             result = decrypt(cipher_type, text, password)
-
-        # Writing the result for encryption or decryption
         if output_file:
             mode_flag = 'wb' if mode == 'encrypt' else 'w'
             with open(os.path.join(script_dir, output_file), mode_flag) as file:
                 file.write(result)
         else:
-            # Ensure proper decoding for display based on the operation
             print(result.decode('utf-8') if mode == 'encrypt' else result)
     elif mode == 'gen':
-        # Key generation should not attempt to use 'result' for file operations
         if cipher_type == 'rsa':
             keys = gen(cipher_type)
             public_key, private_key = keys["public"], keys["private"]
