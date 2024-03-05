@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div>
+        <p>User's Name: [Placeholder]</p>
+        <p>User's Picture: [Placeholder]</p>
+        <form action="/profile" method="post">
+            <button type="submit" name="action" value="logout">Logout</button>
+        </form>
+        <form action="/profile" method="post">
+            <input type="password" name="new_password" placeholder="New Password">
+            <button type="submit" name="action" value="password">Update Password</button>
+        </form>
+        <form action="/profile" method="post" enctype="multipart/form-data">
+            <input type="file" name="picture">
+            <button type="submit" name="action" value="picture">Edit Picture</button>
+        </form>
+        <form action="/files" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <button type="submit" name="action" value="upload">Upload File</button>
+        </form>
+    </div>
+</body>
+</html>

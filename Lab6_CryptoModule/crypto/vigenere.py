@@ -17,20 +17,18 @@ class Vigenere:
     def process(self, message, mode):
         encrypted_text = ""
         for i, char in enumerate(message):
-            if not self.is_printable(char):  # Use self to call the method
+            if not self.is_printable(char): 
                 raise ValueError(f"INVALID CHARACTER: {ord(char)}")
             key_char = self.__pass[i % len(self.__pass)]
-            shifted_char = self.vigenere_transform(char, key_char, mode)  # Use self to call the method
+            shifted_char = self.vigenere_transform(char, key_char, mode)  
             encrypted_text += shifted_char
         return encrypted_text
 
     def encrypt(self, message):
-        # Fix mode to "encrypt" and use self to call process
         return bytearray(self.process(message, "encrypt"), 'utf-8')
 
     def decrypt(self, message):
         text = bytes(message).decode('utf-8')
-        # Use self to call process and ensure the mode is "decrypt"
         return self.process(text, "decrypt")
     
     def encode_keys(self):

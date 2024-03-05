@@ -3,7 +3,7 @@ from textwrap import wrap
 
 class PlayFair:
     def __init__(self, password): # very secure
-        self.__pass = password.upper().replace('J', 'I')  # Convert password to uppercase and replace J with I
+        self.__pass = password.upper().replace('J', 'I')  # convert password to uppercase and replace J with I
         self.square = self.generate_square()
 
 
