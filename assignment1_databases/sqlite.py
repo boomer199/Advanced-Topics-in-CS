@@ -7,8 +7,7 @@ cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, salt TEXT)")
 
 # insert data 
-users_data = [('bsea', 'PANDAS!', 'BAMBOO'), ('fern', 'Gully', 'mooses'), 
-              ('brakeman', 'mental', 'mices'), ('andy', 'ateapples', 'Battle')]
+users_data = [('bsea', 'PANDAS!', 'BAMBOO'), ('fern', 'Gully', 'mooses'), ('brakeman', 'mental', 'mices'), ('andy', 'ateapples', 'Battle')]
 cursor.executemany("INSERT INTO users (username, password, salt) VALUES (?, ?, ?)", users_data)
 
 # make th profiles table

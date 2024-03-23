@@ -1,13 +1,29 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
-.center-form {
-    margin: auto;
-    width: 50%;
+input[type="text"], input[type="password"], input[type="file"] {
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
     padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-input, button {
-    margin: 5px;
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
