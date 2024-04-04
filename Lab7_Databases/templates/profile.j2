@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="profile-container">
+    <p>User's Name: {{ profile.fname }} {{ profile.lname }}</p>
+    <p>User's Picture: <img src="{{ url_for('static', filename=profile.avatar if profile.avatar else 'avatars/default_avatar.jpg') }}" alt="User's Picture"></p>
+
+    <form action="{{ url_for('logout') }}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
+    <form action="{{ url_for('user_profile', user=profile.username) }}" method="post">
+        <input type="text" name="fname" placeholder="First Name" value="{{ profile.fname }}">
+        <input type="text" name="lname" placeholder="Last Name" value="{{ profile.lname }}">
+        <button type="submit" name="action" value="name">Update Name</button>
+    </form>
+
+    <form action="{{ url_for('user_profile', user=profile.username) }}" method="post">
+        <input type="password" name="new_password" placeholder="New Password">
+        <button type="submit" name="action" value="password">Update Password</button>
+    </form>
+    <form action="{{ url_for('user_profile', user=profile.username) }}" method="post">
+        <input type="text" name="confirmation" placeholder="Type Username to Confirm">
+        <button type="submit" name="action" value="delete">Delete Account</button>
+    </form>
+    <form action="{{ url_for('user_profile', user=profile.username) }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="picture">
+        <button type="submit" name="action" value="picture">Edit Picture</button>
+    </form>
+    <form action="{{ url_for('user_files', user=profile.username) }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        
+        <button type="submit">this doesnt work lmao dont try it</button>
+    </form>
+</div>
+</body>
+</html>
