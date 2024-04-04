@@ -21,11 +21,8 @@ except redis.ConnectionError:
 
 # validate IPv4 address
 def is_valid_ipv4(address):
-    pattern = r'^(\d{1,3}\.){3}\d{1,3}$' # regex to validate ip address (used chatgpt)
-    if re.match(pattern, address):
-        parts = address.split('.')
-        return all(0 <= int(part) <= 255 for part in parts)
-    return False
+    parts = address.split('.')
+    return all(0 <= int(part) <= 255 for part in parts)
 
 # Program to determine your IPv4 address (Method 1)
 try:
