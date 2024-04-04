@@ -30,7 +30,7 @@ def is_valid_ipv4(address):
 # Program to determine your IPv4 address (Method 1)
 try:
     hostname = socket.gethostname()
-    ipv4_address = socket.gethostbyname(hostname)
+    ipv4_address = socket.gethostbyname_ex(hostname)[2][1] 
     print(f"Internal IPv4 Address for {hostname}: {ipv4_address}")
 except socket.gaierror:
     print("There was an error resolving the hostname.")
@@ -40,7 +40,7 @@ except Exception as e:
 
 # create a listening socket
 listen_socket = socket.socket()
-listen_socket.bind((socket.gethostname(), 8082))
+listen_socket.bind((socket.gethostbyname_ex(socket.gethostname())[2][1], 8082))
 listen_socket.listen(10)
 
 print(f"Listening on {ipv4_address}:8082")
