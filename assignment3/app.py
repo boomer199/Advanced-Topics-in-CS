@@ -1,6 +1,5 @@
 import sys
 import socket
-import re
 import redis
 
 # Check for the correct number of arguments and validate NUM
